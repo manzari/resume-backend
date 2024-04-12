@@ -1,0 +1,11 @@
+services:
+  resume_backend_dev:
+    image: gradle:jdk17-alpine
+    entrypoint: gradle bootRun
+    working_dir: /app
+    container_name: resume_backend_dev
+    volumes:
+      - ./:/app
+    ports:
+      - '8081:8080'
+    env_file: .env.dev
