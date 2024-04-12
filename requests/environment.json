@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "id": "2p7xbvnoy1h",
+  "name": "ResumeBackend",
+  "variables": [
+    {
+      "key": "jwttoken",
+      "value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyMSIsImlhdCI6MTcxMjkzNTkzMCwiZXhwIjoxNzEzMDIyMzMwfQ.Ji-dzg3yAC9MJ29A_3cU91Jmzo2tSmhk-EEfMqZEZ56JFXgWtpx64QvzXANYeqH8",
+      "secret": false
+    }
+  ]
+}

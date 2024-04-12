@@ -46,6 +46,7 @@ public class AuthenticationService {
         AppUser newUser = new AppUser();
         newUser.setUsername(requestedUser.getUsername());
         newUser.setPassword(passwordEncoder.encode(requestedUser.getPassword()));
+        newUser.setRole(requestedUser.getRole());
 
         newUser = repository.save(newUser);
 
