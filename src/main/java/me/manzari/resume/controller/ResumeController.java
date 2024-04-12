@@ -1,7 +1,6 @@
 package me.manzari.resume.controller;
 
 
-import me.manzari.resume.model.AppUser;
 import me.manzari.resume.model.Resume;
 import me.manzari.resume.repository.ResumeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
