@@ -18,6 +18,7 @@ public class ResumeController {
     private ResumeRepository resumeRepository;
 
     @GetMapping("/resume/{id}")
+    @CrossOrigin
     public ResponseEntity<Resume> getResume(@PathVariable Long id) {
         final Optional<Resume> resume = this.resumeRepository.findById(id);
         if (resume.isPresent()) {
@@ -27,6 +28,7 @@ public class ResumeController {
     }
 
     @PostMapping("/resume")
+    @CrossOrigin
     public ResponseEntity<Resume> postResume(@RequestBody Resume request) {
         return ResponseEntity.ok(this.resumeRepository.save(request));
     }

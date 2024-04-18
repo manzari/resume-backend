@@ -38,14 +38,13 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(AppUser requestedUser) {
 
-        // check if user already exist. if exist than authenticate the user
         if (repository.findByUsername(requestedUser.getUsername()).isPresent()) {
             return new AuthenticationResponse(null, "User already exists");
         }
 
         AppUser newUser = new AppUser();
         newUser.setUsername(requestedUser.getUsername());
-        newUser.setPassword(passwordEncoder.encode(requestedUser.getPassword()));
+        newUser.setPassword(passwordEncoder.encode(requestedUser.getPassword().toUpperCase()));
         newUser.setRole(requestedUser.getRole());
 
         newUser = repository.save(newUser);

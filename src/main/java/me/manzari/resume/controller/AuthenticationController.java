@@ -4,6 +4,7 @@ import me.manzari.resume.model.AuthenticationResponse;
 import me.manzari.resume.service.AuthenticationService;
 import me.manzari.resume.model.AppUser;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,7 @@ public class AuthenticationController {
 
 
     @PostMapping("/register")
+    @CrossOrigin
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody AppUser request
     ) {
@@ -26,6 +28,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
+    @CrossOrigin
     public ResponseEntity<AuthenticationResponse> login(
             @RequestBody AppUser request
     ) {
