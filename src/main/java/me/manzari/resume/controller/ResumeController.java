@@ -19,10 +19,21 @@ public class ResumeController {
 
     @GetMapping("/resume/{id}")
     @CrossOrigin
-    public ResponseEntity<Resume> getResume(@PathVariable Long id) {
+    public ResponseEntity<Resume> getResumeById(@PathVariable Long id) {
         final Optional<Resume> resume = this.resumeRepository.findById(id);
         if (resume.isPresent()) {
             return ResponseEntity.ok(resume.get());
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
+
+    @PatchMapping("/resume/{id}")
+    @CrossOrigin
+    public ResponseEntity<Resume> patchResume(@PathVariable Long id, @RequestBody Resume request) {
+        final Optional<Resume> resume = this.resumeRepository.findById(id);
+        if (resume.isPresent()) {
+            request.setId(id);
+            return ResponseEntity.ok(this.resumeRepository.save(request));
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
