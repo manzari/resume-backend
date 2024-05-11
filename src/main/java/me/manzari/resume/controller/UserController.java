@@ -27,6 +27,10 @@ public class UserController {
     @CrossOrigin
     public ResponseEntity<List> getUsers() {
         final List<AppUser> appUsers = this.appUserRepository.findAll();
+        for (AppUser appUser : appUsers) {
+            appUser.setPassword("*****");
+        }
+
         return ResponseEntity.ok(appUsers);
     }
 
