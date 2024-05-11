@@ -8,7 +8,9 @@ import org.springframework.context.annotation.Configuration;
 public class ResumeProperties {
     private String url;
     private String dataPath;
-    private String defaultPassword;
+    private String defaultAdminPassword;
+    private String defaultUserPassword;
+    private String defaultUserName;
 
     public String getUrl() {
         return url;
@@ -26,11 +28,27 @@ public class ResumeProperties {
         this.dataPath = dataPath;
     }
 
-    public String getDefaultPassword() {
-        return defaultPassword;
+    public String getDefaultAdminPassword() {
+        return defaultAdminPassword;
     }
 
-    public void setDefaultPassword(String defaultPassword) {
-        this.defaultPassword = defaultPassword;
+    public void setDefaultAdminPassword(String defaultAdminPassword) {
+        this.defaultAdminPassword = defaultAdminPassword;
+    }
+
+    public String getDefaultUserPassword() {
+        return defaultUserPassword;
+    }
+
+    public void setDefaultUserPassword(String defaultUserPassword) {
+        this.defaultUserPassword = defaultUserPassword;
+    }
+
+    public String getDefaultUserName() {
+        return defaultUserName;
+    }
+
+    public void setDefaultUserName(String defaultUserName) {
+        this.defaultUserName = defaultUserName;
     }
 }
