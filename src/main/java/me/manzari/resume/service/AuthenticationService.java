@@ -5,7 +5,6 @@ import me.manzari.resume.model.AppUser;
 import me.manzari.resume.model.Token;
 import me.manzari.resume.repository.AppUserRepository;
 import me.manzari.resume.repository.TokenRepository;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
