@@ -4,6 +4,7 @@ import me.manzari.resume.filter.JwtAuthenticationFilter;
 import me.manzari.resume.service.UserDetailsServiceImp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -44,10 +46,15 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(
-                        req->req.requestMatchers("/login").permitAll()
-                                .requestMatchers("/resume", "/register").hasAuthority("ADMIN")
-                                .anyRequest()
-                                .authenticated()
+                        req->req.requestMatchers(antMatcher(HttpMethod.POST, "/login")).permitAll()
+                                .requestMatchers(
+                                        antMatcher(HttpMethod.POST, "/register"),
+                                        antMatcher(HttpMethod.POST, "/resume"),
+                                        antMatcher(HttpMethod.GET, "/users"),
+                                        antMatcher(HttpMethod.DELETE, "/user/**"),
+                                        antMatcher(HttpMethod.PATCH, "/resume/**")
+                                ).hasAuthority("ADMIN")
+                                .anyRequest().authenticated()
                 ).userDetailsService(userDetailsServiceImp)
                 .sessionManagement(session->session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
