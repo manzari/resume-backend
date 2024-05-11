@@ -1,5 +1,6 @@
 package me.manzari.resume.repository;
 
+import jakarta.transaction.Transactional;
 import me.manzari.resume.model.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +16,9 @@ select t from Token t inner join AppUser u on t.user.id = u.id
 where t.user.id = :userId and t.loggedOut = false
 """)
     List<Token> findAllTokensByUser(Long userId);
+
+    @Transactional
+    void deleteAllByUserId(Long userId);
 
     Optional<Token> findByToken(String token);
 }
