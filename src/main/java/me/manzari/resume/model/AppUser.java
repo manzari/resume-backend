@@ -1,5 +1,6 @@
 package me.manzari.resume.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -16,6 +17,7 @@ public class AppUser implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;
+    private String name;
     private String username;
     private String password;
     private Role role;
@@ -84,5 +86,13 @@ public class AppUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

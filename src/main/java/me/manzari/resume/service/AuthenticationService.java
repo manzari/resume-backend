@@ -5,6 +5,7 @@ import me.manzari.resume.model.AppUser;
 import me.manzari.resume.model.Token;
 import me.manzari.resume.repository.AppUserRepository;
 import me.manzari.resume.repository.TokenRepository;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,6 +44,7 @@ public class AuthenticationService {
         }
 
         AppUser newUser = new AppUser();
+        newUser.setName(requestedUser.getName());
         newUser.setUsername(requestedUser.getUsername());
         newUser.setPassword(passwordEncoder.encode(requestedUser.getPassword().toUpperCase()));
         newUser.setRole(requestedUser.getRole());
