@@ -1,4 +1,4 @@
-package me.manzari.resume;
+package me.manzari.resume.service;
 
 import me.manzari.resume.config.ResumeProperties;
 import me.manzari.resume.model.AppUser;

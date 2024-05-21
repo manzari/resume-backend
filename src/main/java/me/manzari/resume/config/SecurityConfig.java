@@ -1,6 +1,7 @@
 package me.manzari.resume.config;
 
 import me.manzari.resume.filter.JwtAuthenticationFilter;
+import me.manzari.resume.service.CustomLogoutHandler;
 import me.manzari.resume.service.UserDetailsServiceImp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

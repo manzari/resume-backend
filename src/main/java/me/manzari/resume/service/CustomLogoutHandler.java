@@ -1,4 +1,4 @@
-package me.manzari.resume.config;
+package me.manzari.resume.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
