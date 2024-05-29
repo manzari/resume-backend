@@ -8,6 +8,6 @@ COPY src /workspace/app/src
 RUN gradle build
 
 FROM eclipse-temurin:17-jdk-alpine
-VOLUME /tmp
+WORKDIR /app
 COPY --from=build /workspace/app/build/libs/resume-0.0.1-SNAPSHOT.jar /app/resume.jar
 ENTRYPOINT ["java","-jar","/app/resume.jar"]

@@ -5,5 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: resume_backend
+    volumes:
+      - ./data:/app/data
     ports:
-      - '8081:80'
+      - '8081:8080'
