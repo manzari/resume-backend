@@ -24,7 +24,6 @@ public class UserController {
     private TokenRepository tokenRepository;
 
     @GetMapping("/users")
-    @CrossOrigin
     public ResponseEntity<List> getUsers() {
         final List<AppUser> appUsers = this.appUserRepository.findAll();
         for (AppUser appUser : appUsers) {
@@ -35,7 +34,6 @@ public class UserController {
     }
 
     @DeleteMapping("/user/{id}")
-    @CrossOrigin
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         final Optional<AppUser> optionalAppUser = this.appUserRepository.findById(id);
         if (optionalAppUser.isEmpty()) {

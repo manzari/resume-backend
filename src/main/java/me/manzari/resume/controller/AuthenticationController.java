@@ -20,7 +20,6 @@ public class AuthenticationController {
 
 
     @PostMapping("/register")
-    @CrossOrigin
     public ResponseEntity<AuthenticationResponse> register(
             @RequestBody AppUser request
     ) {
@@ -28,7 +27,6 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    @CrossOrigin
     public ResponseEntity<AuthenticationResponse> login(
             @RequestBody AppUser request
     ) {

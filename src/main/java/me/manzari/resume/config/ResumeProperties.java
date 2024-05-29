@@ -6,18 +6,19 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties("resume")
 public class ResumeProperties {
-    private String url;
+    private String apiUrl;
+    private String corsUrl;
     private String dataPath;
     private String defaultAdminPassword;
     private String defaultUserPassword;
     private String defaultUserName;
 
-    public String getUrl() {
-        return url;
+    public String getApiUrl() {
+        return apiUrl;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setApiUrl(String apiUrl) {
+        this.apiUrl = apiUrl;
     }
 
     public String getDataPath() {
@@ -50,5 +51,13 @@ public class ResumeProperties {
 
     public void setDefaultUserName(String defaultUserName) {
         this.defaultUserName = defaultUserName;
+    }
+
+    public String getCorsUrl() {
+        return corsUrl;
+    }
+
+    public void setCorsUrl(String corsUrl) {
+        this.corsUrl = corsUrl;
     }
 }

@@ -29,7 +29,6 @@ public class FileController {
     }
 
     @GetMapping("/file/{filename}")
-    @CrossOrigin
     public ResponseEntity<Resource> getFile(@PathVariable String filename) {
         final Pattern pattern = Pattern.compile("([A-z0-9]{1,64})\\.([A-z0-9]{3})");
         final Matcher matcher = pattern.matcher(filename);
