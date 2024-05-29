@@ -55,7 +55,7 @@ public class SecurityConfig {
 
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .cors(Customizer.withDefaults())
+                .cors((cors) -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(
                         req -> req.requestMatchers(antMatcher(HttpMethod.POST, "/login")).permitAll()
                                 .requestMatchers(
