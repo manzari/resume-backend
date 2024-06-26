@@ -63,7 +63,10 @@ public class SecurityConfig {
                                         antMatcher(HttpMethod.POST, "/resume"),
                                         antMatcher(HttpMethod.GET, "/users"),
                                         antMatcher(HttpMethod.DELETE, "/user/**"),
-                                        antMatcher(HttpMethod.PATCH, "/resume/**")
+                                        antMatcher(HttpMethod.PATCH, "/resume/**"),
+                                        antMatcher(HttpMethod.GET, "/files"),
+                                        antMatcher(HttpMethod.POST, "/file/**"),
+                                        antMatcher(HttpMethod.DELETE, "/file/**")
                                 ).hasAuthority("ADMIN")
                                 .anyRequest().authenticated()
                 ).userDetailsService(userDetailsServiceImp)

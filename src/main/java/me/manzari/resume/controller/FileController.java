@@ -1,5 +1,6 @@
 package me.manzari.resume.controller;
 
+import me.manzari.resume.model.FilesResponse;
 import me.manzari.resume.service.FileSystemStorageService;
 import me.manzari.resume.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -47,5 +53,25 @@ public class FileController {
                 HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
 
+    }
+
+    @GetMapping("/files")
+    public ResponseEntity<FilesResponse> getFiles() {
+        return ResponseEntity.ok(new FilesResponse(storageService.listAll()));
+    }
+
+    @DeleteMapping("/file/{filename}")
+    public ResponseEntity<?> deleteFile(@PathVariable String filename) {
+        storageService.delete(filename);
+        return ResponseEntity.ok(null);
+    }
+
+    @PostMapping("/file/{filename}")
+    public ResponseEntity<?> handleFileUpload(@PathVariable String filename, @RequestParam("file") MultipartFile file) {
+        if (file.getOriginalFilename() == null ) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        storageService.store(file, filename);
+        return ResponseEntity.ok(null);
     }
 }

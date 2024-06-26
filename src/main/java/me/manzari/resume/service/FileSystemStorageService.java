@@ -35,13 +35,13 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public void store(MultipartFile file) {
+    public void store(MultipartFile file, String filename) {
         try {
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file.");
             }
             Path destinationFile = this.rootLocation.resolve(
-                            Paths.get(Objects.requireNonNull(file.getOriginalFilename())))
+                            Paths.get(Objects.requireNonNull(filename)))
                     .normalize().toAbsolutePath();
             if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
                 // This is a security check
@@ -58,11 +58,12 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public Stream<Path> loadAll() {
+    public String[] listAll() {
         try {
             return Files.walk(this.rootLocation, 1)
                     .filter(path -> !path.equals(this.rootLocation))
-                    .map(this.rootLocation::relativize);
+                    .map(path -> path.getFileName().toString())
+                    .toArray(String[]::new);
         } catch (IOException e) {
             throw new StorageException("Failed to read stored files", e);
         }
@@ -92,8 +93,8 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public void deleteAll() {
-        FileSystemUtils.deleteRecursively(rootLocation.toFile());
+    public void delete(String filename) {
+        FileSystemUtils.deleteRecursively(load(filename).toFile());
     }
 
     @Override
