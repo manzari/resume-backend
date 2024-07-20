@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
-import java.util.stream.Stream;
+import java.util.logging.Logger;
 
 import me.manzari.resume.config.ResumeProperties;
 import me.manzari.resume.exceptions.StorageException;
@@ -24,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileSystemStorageService implements StorageService {
 
     private final Path rootLocation;
+    private static final Logger LOG = Logger.getAnonymousLogger();
+
 
     @Autowired
     public FileSystemStorageService(ResumeProperties resumeProperties) {
@@ -44,7 +46,7 @@ public class FileSystemStorageService implements StorageService {
                             Paths.get(Objects.requireNonNull(filename)))
                     .normalize().toAbsolutePath();
             if (!destinationFile.getParent().equals(this.rootLocation.toAbsolutePath())) {
-                // This is a security check
+
                 throw new StorageException(
                         "Cannot store file outside current directory.");
             }
@@ -52,6 +54,7 @@ public class FileSystemStorageService implements StorageService {
                 Files.copy(inputStream, destinationFile,
                         StandardCopyOption.REPLACE_EXISTING);
             }
+            LOG.info("Stored file: " + destinationFile);
         } catch (IOException e) {
             throw new StorageException("Failed to store file.", e);
         }
