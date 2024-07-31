@@ -18,7 +18,7 @@ public class Resume {
     @GeneratedValue
     private Long id;
 
-    @Column(length=12800)
+    @Column(length = 12800)
     private String content;
 
     public Resume(String content) {

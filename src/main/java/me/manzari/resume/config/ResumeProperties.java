@@ -6,20 +6,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties("resume")
 public class ResumeProperties {
-    private String apiUrl;
-    private String corsUrl;
+    private String frontendUrl;
     private String dataPath;
     private String defaultAdminPassword;
     private String defaultUserPassword;
     private String defaultUserName;
+    private Boolean matomoEnabled;
+    private String matomoUrl;
+    private String matomoSiteId;
 
-    public String getApiUrl() {
-        return apiUrl;
-    }
-
-    public void setApiUrl(String apiUrl) {
-        this.apiUrl = apiUrl;
-    }
 
     public String getDataPath() {
         return dataPath;
@@ -53,11 +48,35 @@ public class ResumeProperties {
         this.defaultUserName = defaultUserName;
     }
 
-    public String getCorsUrl() {
-        return corsUrl;
+    public String getMatomoSiteId() {
+        return matomoSiteId;
     }
 
-    public void setCorsUrl(String corsUrl) {
-        this.corsUrl = corsUrl;
+    public void setMatomoSiteId(String matomoSiteId) {
+        this.matomoSiteId = matomoSiteId;
+    }
+
+    public Boolean getMatomoEnabled() {
+        return matomoEnabled;
+    }
+
+    public void setMatomoEnabled(Boolean matomoEnabled) {
+        this.matomoEnabled = matomoEnabled;
+    }
+
+    public String getMatomoUrl() {
+        return matomoUrl;
+    }
+
+    public void setMatomoUrl(String matomoUrl) {
+        this.matomoUrl = matomoUrl;
+    }
+
+    public String getFrontendUrl() {
+        return frontendUrl;
+    }
+
+    public void setFrontendUrl(String frontendUrl) {
+        this.frontendUrl = frontendUrl;
     }
 }

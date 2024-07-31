@@ -1,7 +1,7 @@
 package me.manzari.resume.service;
 
-import me.manzari.resume.model.AuthenticationResponse;
 import me.manzari.resume.model.AppUser;
+import me.manzari.resume.model.AuthenticationResponse;
 import me.manzari.resume.model.Token;
 import me.manzari.resume.repository.AppUserRepository;
 import me.manzari.resume.repository.TokenRepository;
@@ -24,11 +24,7 @@ public class AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationService(AppUserRepository repository,
-                                 PasswordEncoder passwordEncoder,
-                                 JwtService jwtService,
-                                 TokenRepository tokenRepository,
-                                 AuthenticationManager authenticationManager) {
+    public AuthenticationService(AppUserRepository repository, PasswordEncoder passwordEncoder, JwtService jwtService, TokenRepository tokenRepository, AuthenticationManager authenticationManager) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
@@ -75,7 +71,6 @@ public class AuthenticationService {
         revokeAllTokenByUser(user.get());
         saveUserToken(jwt, user.get());
         return new AuthenticationResponse(jwt, "User login was successful");
-
 
     }
 

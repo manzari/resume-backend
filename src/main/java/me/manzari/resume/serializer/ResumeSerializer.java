@@ -1,7 +1,6 @@
 package me.manzari.resume.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
@@ -12,18 +11,18 @@ import java.util.Map;
 
 public class ResumeSerializer extends StdSerializer<Resume> {
 
-    public  ResumeSerializer() {
+    public ResumeSerializer() {
         this(null);
     }
 
-    public  ResumeSerializer(Class<Resume> t) {
+    public ResumeSerializer(Class<Resume> t) {
         super(t);
     }
 
     @Override
     public void serialize(
             Resume resume, JsonGenerator jgen, SerializerProvider provider)
-            throws IOException, JsonProcessingException {
+            throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         Map<?, ?> map = mapper.readValue(resume.getContent(), Map.class);
 
