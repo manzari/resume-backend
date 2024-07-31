@@ -1,7 +1,6 @@
 package me.manzari.resume.service;
 
 import me.manzari.resume.config.ResumeProperties;
-import me.manzari.resume.model.AppUser;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -23,26 +22,17 @@ public class TrackingService {
     }
 
     @Async
-    public void track(String action, String url, Object principal) throws InterruptedException {
+    public void track(Action action, String url, String user) throws InterruptedException {
         if (!resumeProperties.getMatomoEnabled()) {
             return;
         }
-        String uid = null;
-        if (principal instanceof AppUser appUser) {
-            uid = appUser.getName();
-        }
-        LOG.info(String.format("Tracking action '%s' at '%s' was done by '%s'", action, url, uid));
+        LOG.info(String.format("Tracking action '%s' at '%s' was done by '%s'", action.getName(), url, user));
         Random random = new Random();
         int randomInt = random.nextInt(100000);
-        UriComponentsBuilder matomoUrl = UriComponentsBuilder.fromHttpUrl(resumeProperties.getMatomoUrl() + "/matomo.php")
-                .queryParam("action_name", action)
-                .queryParam("url", resumeProperties.getFrontendUrl() + url)
-                .queryParam("idsite", resumeProperties.getMatomoSiteId())
-                .queryParam("rand", randomInt)
-                .queryParam("rec", 1);
+        UriComponentsBuilder matomoUrl = UriComponentsBuilder.fromHttpUrl(resumeProperties.getMatomoUrl() + "/matomo.php").queryParam("action_name", action).queryParam("url", resumeProperties.getFrontendUrl() + url).queryParam("idsite", resumeProperties.getMatomoSiteId()).queryParam("rand", randomInt).queryParam("rec", 1);
 
-        if (uid != null) {
-            matomoUrl.queryParam("uid", uid);
+        if (!user.isEmpty()) {
+            matomoUrl.queryParam("uid", user);
         }
 
         RestTemplate restTemplate = new RestTemplate();

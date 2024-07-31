@@ -14,7 +14,10 @@ public class ResumeProperties {
     private Boolean matomoEnabled;
     private String matomoUrl;
     private String matomoSiteId;
-
+    private Boolean notificationsEnabled;
+    private String gotifyUrl;
+    private String gotifyToken;
+    private Integer notificationPriority;
 
     public String getDataPath() {
         return dataPath;
@@ -78,5 +81,37 @@ public class ResumeProperties {
 
     public void setFrontendUrl(String frontendUrl) {
         this.frontendUrl = frontendUrl;
+    }
+
+    public Boolean getNotificationsEnabled() {
+        return notificationsEnabled;
+    }
+
+    public void setNotificationsEnabled(Boolean notificationsEnabled) {
+        this.notificationsEnabled = notificationsEnabled;
+    }
+
+    public String getGotifyUrl() {
+        return gotifyUrl;
+    }
+
+    public void setGotifyUrl(String gotifyUrl) {
+        this.gotifyUrl = gotifyUrl;
+    }
+
+    public String getGotifyToken() {
+        return gotifyToken;
+    }
+
+    public void setGotifyToken(String gotifyToken) {
+        this.gotifyToken = gotifyToken;
+    }
+
+    public Integer getNotificationPriority() {
+        return notificationPriority;
+    }
+
+    public void setNotificationPriority(Integer notificationPriority) {
+        this.notificationPriority = notificationPriority;
     }
 }

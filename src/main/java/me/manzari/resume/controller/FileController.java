@@ -2,8 +2,9 @@ package me.manzari.resume.controller;
 
 import me.manzari.resume.exceptions.StorageFileNotFoundException;
 import me.manzari.resume.model.FilesResponse;
+import me.manzari.resume.service.Action;
+import me.manzari.resume.service.ActionService;
 import me.manzari.resume.service.StorageService;
-import me.manzari.resume.service.TrackingService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -22,13 +24,13 @@ public class FileController {
 
     private final StorageService storageService;
 
-    private final TrackingService trackingService;
+    private final ActionService actionService;
 
     private final List<String> allowedFileExtensions = Arrays.asList("pdf", "jpg", "png");
 
-    public FileController(StorageService storageService, TrackingService trackingService) {
+    public FileController(StorageService storageService, ActionService actionService) {
         this.storageService = storageService;
-        this.trackingService = trackingService;
+        this.actionService = actionService;
     }
 
     @GetMapping("/file/{filename}")
@@ -41,10 +43,7 @@ public class FileController {
         if (!allowedFileExtensions.contains(matcher.group(2))) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "File type not accepted");
         }
-        try {
-            trackingService.track("file", "/file/" + filename, SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        } catch (InterruptedException ignored) {
-        }
+        actionService.process(Action.File, "/file/" + filename, SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         try {
             Resource file = storageService.loadAsResource(filename);
             if (file == null) {
