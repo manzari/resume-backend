@@ -1,5 +1,6 @@
 package me.manzari.resume.controller;
 
+import me.manzari.resume.exceptions.StorageFileNotFoundException;
 import me.manzari.resume.model.FilesResponse;
 import me.manzari.resume.service.StorageService;
 import me.manzari.resume.service.TrackingService;
@@ -13,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,17 +41,19 @@ public class FileController {
         if (!allowedFileExtensions.contains(matcher.group(2))) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "File type not accepted");
         }
-        Resource file = storageService.loadAsResource(filename);
-
-        if (file == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
         try {
             trackingService.track("file", "/file/" + filename, SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         } catch (InterruptedException ignored) {
         }
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
-
+        try {
+            Resource file = storageService.loadAsResource(filename);
+            if (file == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "File not found");
+            }
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+        } catch (StorageFileNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "File not found");
+        }
     }
 
     @GetMapping("/files")
