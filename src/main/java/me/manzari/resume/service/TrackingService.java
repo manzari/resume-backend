@@ -31,7 +31,7 @@ public class TrackingService {
         int randomInt = random.nextInt(100000);
         UriComponentsBuilder matomoUrl = UriComponentsBuilder.fromHttpUrl(resumeProperties.getMatomoUrl() + "/matomo.php").queryParam("action_name", action).queryParam("url", resumeProperties.getFrontendUrl() + url).queryParam("idsite", resumeProperties.getMatomoSiteId()).queryParam("rand", randomInt).queryParam("rec", 1);
 
-        if (!user.isEmpty()) {
+        if (user != null && !user.isEmpty()) {
             matomoUrl.queryParam("uid", user);
         }
 

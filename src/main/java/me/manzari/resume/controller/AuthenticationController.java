@@ -6,7 +6,6 @@ import me.manzari.resume.service.Action;
 import me.manzari.resume.service.ActionService;
 import me.manzari.resume.service.AuthenticationService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +32,7 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> login(@RequestBody AppUser request) {
         AuthenticationResponse response = authService.authenticate(request);
         if (response.token() != null) {
-            actionService.process(Action.Login, "/login", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+            actionService.process(Action.Login, "/login", request);
         }
         return ResponseEntity.ok(response);
     }
