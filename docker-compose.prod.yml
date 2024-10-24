@@ -14,3 +14,5 @@ services:
       DATASOURCE_PASSWORD: secretforest
       DEFAULT_ADMIN_PASSWORD: secretfrog
       LOG_LEVEL: INFO
+      TRACKING_ENABLED: "false"
+      NOTIFICATIONS_ENABLED: "false"
